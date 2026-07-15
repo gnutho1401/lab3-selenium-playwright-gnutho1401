@@ -2,14 +2,11 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class LoginPage {
-    private WebDriver driver;
+public class LoginPage extends BasePage {
 
-    // Constructor
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     // Locators
@@ -21,13 +18,13 @@ public class LoginPage {
 
     // Actions
     public void navigate() {
-        driver.get("https://the-internet.herokuapp.com/login");
+        navigateTo("https://the-internet.herokuapp.com/login");
     }
 
     public void login(String username, String password) {
-        driver.findElement(usernameField).sendKeys(username);
-        driver.findElement(passwordField).sendKeys(password);
-        driver.findElement(loginButton).click();
+        type(usernameField, username);
+        type(passwordField, password);
+        click(loginButton);
     }
 
     public By getSuccessLocator() {
@@ -36,5 +33,9 @@ public class LoginPage {
 
     public By getErrorLocator() {
         return errorMsg;
+    }
+
+    public String getMessageText(By locator) {
+        return getText(locator);
     }
 }
